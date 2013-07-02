@@ -24,7 +24,7 @@ If you want to make an AJAX call from within a WebWorker, load the __<span style
 
 > importScripts("twix.min.js");
 
-Making an AJAX request is as simple as calling __Twix.ajax(...)__ or __Twix.get(...)__ or __Twix.post(...)__. If type the four characters of "__<span style="color: rgb(180,0,0);">Twix</span>__" is too much, you use the optional double-underscore (*__.ajax(...)*) shortcut. 
+Making an AJAX request is as simple as calling __Twix.ajax(...)__ or __Twix.get(...)__ or __Twix.post(...)__. If typing the four characters of __Twix__ is too much, you use the optional double-underscore (*__.ajax(...)*) shortcut. 
 
 There's an _ultra-basic_ sample of making a GET request from a WebWorker in the [__sample__](http://github.com/neilco/twix/sample/) directory. 
 
