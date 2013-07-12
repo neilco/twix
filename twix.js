@@ -29,11 +29,18 @@ var Twix = (function () {
         options = options || {url:""};
         options.type = options.type || 'GET';
         options.headers = options.headers || {};
+        options.timeout = options.timeout || 0;
         options.success = options.success || function() {};
         options.error = options.error || function() {};
         options.async = typeof options.async === 'undefined' ? true : options.async;
 
         var client = new XMLHttpRequest();
+        if (options.timeout > 0) {
+            client.timeout = options.timeout;
+            client.ontimeout = function () { 
+                options.error('timeout', 'timeout', client); 
+            }
+        }
         client.open(options.type, options.url, options.async);
 
         for (var i in options.headers) {
@@ -41,7 +48,7 @@ var Twix = (function () {
                 client.setRequestHeader(i, options.headers[i]);
             }
         }
-
+        
         client.send(options.data);
         client.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
