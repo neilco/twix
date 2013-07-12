@@ -29,7 +29,7 @@ var Twix = (function () {
         options = options || {url:""};
         options.type = options.type || 'GET';
         options.headers = options.headers || {};
-        options.timeout = options.timeout || 0;
+        options.timeout = parseInt(options.timeout) || 0;
         options.success = options.success || function() {};
         options.error = options.error || function() {};
         options.async = typeof options.async === 'undefined' ? true : options.async;
