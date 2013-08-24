@@ -53,7 +53,8 @@ var Twix = (function () {
         client.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 var data = this.responseText;
-                if (this.getResponseHeader('Content-Type').match(/json/)) {
+                var contentType = this.getResponseHeader('Content-Type');
+                if (contentType && contentType.match(/json/)) {
                     data = JSON.parse(this.responseText);
                 }
                 options.success(data, this.statusText, this);
