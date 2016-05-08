@@ -41,7 +41,7 @@ var Twix = (function () {
                 options.error('timeout', 'timeout', client); 
             }
         }
-        client.open(options.type, options.url, options.async);
+        client.open(options.type.toUpperCase(), options.url, options.async);
 
         for (var i in options.headers) {
             if (options.headers.hasOwnProperty(i)) {
