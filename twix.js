@@ -39,7 +39,7 @@ var Twix = (function () {
             client.timeout = options.timeout;
             client.ontimeout = function () { 
                 options.error('timeout', 'timeout', client); 
-            }
+            };
         }
         client.open(options.type, options.url, options.async);
 
@@ -73,33 +73,26 @@ var Twix = (function () {
 
         return client;
     };
-    
-    Twix.get = function(url, data, callback) {
+
+    var ajaxCall = function(url, type, data, callback) {
         if (typeof data === "function") {
             callback = data;
             data = undefined;
         }
-        
         return Twix.ajax({
             url: url,
             data: data, 
+            type: type,
             success: callback
         });
     };
+
+    ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS'].forEach(function(type){
+        Twix[type.toLowerCase()] = function(url, data, callback){
+            return ajaxCall(url, type, data, callback);
+        };
+    });
     
-    Twix.post = function(url, data, callback) {
-        if (typeof data === "function") {
-            callback = data;
-            data = undefined;
-        }
-        
-        return Twix.ajax({
-            url: url,
-            type: 'POST',
-            data: data, 
-            success: callback
-        });
-    };
     
     return Twix;
 })();
