@@ -51,7 +51,7 @@ var Twix = (function () {
         
         client.send(options.data);
         client.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
+            if (this.readyState == 4 && ((this.status >= 200 && this.status < 300) || this.status == 304)) {
                 var data = this.responseText;
                 var contentType = this.getResponseHeader('Content-Type');
                 if (contentType && contentType.match(/json/)) {
@@ -64,7 +64,7 @@ var Twix = (function () {
         };
 
         if (options.async == false) {
-            if (client.readyState == 4 && client.status == 200) {
+            if (client.readyState == 4 && ((client.status >= 200 && client.status < 300) || client.status == 304)) {
                 options.success(client.responseText, client);
             } else if (client.readyState == 4) {
                 options.error(client.status, client.statusText, client);
