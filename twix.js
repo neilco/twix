@@ -74,7 +74,7 @@ var Twix = (function () {
         return client;
     };
 
-    var ajaxCall = function(url, type, data, callback) {
+    var _ajax = function(type, url, data, callback) {
         if (typeof data === "function") {
             callback = data;
             data = undefined;
@@ -87,11 +87,33 @@ var Twix = (function () {
         });
     };
 
-    ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS'].forEach(function(type){
-        Twix[type.toLowerCase()] = function(url, data, callback){
-            return ajaxCall(url, type, data, callback);
-        };
-    });
+    Twix.get = function(url, data, callback) {
+        return _ajax("GET", url, data, callback);
+    };
+
+    Twix.head = function(url, data, callback) {
+        return _ajax("HEAD", url, data, callback);
+    };
+
+    Twix.post = function(url, data, callback) {
+        return _ajax("POST", url, data, callback);
+    };
+
+    Twix.patch = function(url, data, callback) {
+        return _ajax("PATCH", url, data, callback);
+    };
+
+    Twix.put = function(url, data, callback) {
+        return _ajax("PUT", url, data, callback);
+    };
+
+    Twix.delete = function(url, data, callback) {
+        return _ajax("DELETE", url, data, callback);
+    };
+
+    Twix.options = function(url, data, callback) {
+        return _ajax("OPTIONS", url, data, callback);
+    };
     
     
     return Twix;
