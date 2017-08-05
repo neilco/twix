@@ -6,7 +6,7 @@ __<span style="color: rgb(180,0,0);">Twix</span>__ is a lightweight JavaScript l
 
 It may weigh-in at just over 1KB, but this puppy has teeth. __WOOF!__ 
 
-Modelled after the ubiquitious jQuery's AJAX methods (_$.ajax_, _$.get_, and _$.post_), you can use this in places were jQuery will not load, such as __inside a WebWorker__<sup>#</sup>. You little ripper!
+Modelled after the ubiquitious jQuery's AJAX methods (_$.ajax_, _$.get_, _$.post_, _$.patch, _$.put_, _$.delete_ and _$.options_), you can use this in places were jQuery will not load, such as __inside a WebWorker__<sup>#</sup>. You little ripper!
 
 You may be like me and occasionally think that loading the entire jQuery library (about 80KB minified) just to make an AJAX call is just like filling a thimble using a fire hydrant. __<span style="color: rgb(180,0,0);">Twix</span>__ is written from the ground up to work in modern browsers (IE9+, Firefox, Chrome, Safari, etc. Anything that supports __XMLHttpRequest__, really) and has just enough magic sauce to get the job done. No more, no less. 
 

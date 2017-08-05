@@ -39,7 +39,7 @@ var Twix = (function () {
             client.timeout = options.timeout;
             client.ontimeout = function () { 
                 options.error('timeout', 'timeout', client); 
-            }
+            };
         }
         client.open(options.type, options.url, options.async);
 
@@ -51,7 +51,7 @@ var Twix = (function () {
         
         client.send(options.data);
         client.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
+            if (this.readyState == 4 && ((this.status >= 200 && this.status < 300) || this.status == 304)) {
                 var data = this.responseText;
                 var contentType = this.getResponseHeader('Content-Type');
                 if (contentType && contentType.match(/json/)) {
@@ -64,7 +64,7 @@ var Twix = (function () {
         };
 
         if (options.async == false) {
-            if (client.readyState == 4 && client.status == 200) {
+            if (client.readyState == 4 && ((client.status >= 200 && client.status < 300) || client.status == 304)) {
                 options.success(client.responseText, client);
             } else if (client.readyState == 4) {
                 options.error(client.status, client.statusText, client);
@@ -73,33 +73,48 @@ var Twix = (function () {
 
         return client;
     };
-    
+
+    var _ajax = function(type, url, data, callback) {
+        if (typeof data === "function") {
+            callback = data;
+            data = undefined;
+        }
+        return Twix.ajax({
+            url: url,
+            data: data, 
+            type: type,
+            success: callback
+        });
+    };
+
     Twix.get = function(url, data, callback) {
-        if (typeof data === "function") {
-            callback = data;
-            data = undefined;
-        }
-        
-        return Twix.ajax({
-            url: url,
-            data: data, 
-            success: callback
-        });
+        return _ajax("GET", url, data, callback);
+    };
+
+    Twix.head = function(url, data, callback) {
+        return _ajax("HEAD", url, data, callback);
+    };
+
+    Twix.post = function(url, data, callback) {
+        return _ajax("POST", url, data, callback);
+    };
+
+    Twix.patch = function(url, data, callback) {
+        return _ajax("PATCH", url, data, callback);
+    };
+
+    Twix.put = function(url, data, callback) {
+        return _ajax("PUT", url, data, callback);
+    };
+
+    Twix.delete = function(url, data, callback) {
+        return _ajax("DELETE", url, data, callback);
+    };
+
+    Twix.options = function(url, data, callback) {
+        return _ajax("OPTIONS", url, data, callback);
     };
     
-    Twix.post = function(url, data, callback) {
-        if (typeof data === "function") {
-            callback = data;
-            data = undefined;
-        }
-        
-        return Twix.ajax({
-            url: url,
-            type: 'POST',
-            data: data, 
-            success: callback
-        });
-    };
     
     return Twix;
 })();
