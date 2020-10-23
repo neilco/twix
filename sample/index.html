@@ -6,14 +6,14 @@
 </head>
 <body>
   <div id="time"></div>
-  
+
   <script type="text/javascript" charset="utf-8">
   window.onload = function() {
     var worker = new Worker('worker.js');
     var time = document.getElementById("time");
-    
+
     worker.onmessage = function(event) {
-      var jsonData = event.data;
+      var jsonData = JSON.parse(event.data);
       time.innerHTML = "UTC: " + jsonData.time;
     }
   };
