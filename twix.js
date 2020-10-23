@@ -27,7 +27,7 @@ var Twix = (function () {
     
     Twix.ajax = function(options) {
         options = options || {url:""};
-        options.type = options.type.toUpperCase() || 'GET';
+        options.type = options.type && options.type.toUpperCase() || 'GET';
         options.headers = options.headers || {};
         options.timeout = parseInt(options.timeout) || 0;
         options.success = options.success || function() {};
